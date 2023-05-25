@@ -108,6 +108,8 @@ OAUTH2_PROVIDER = {
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups', 'introspection': 'Introspect token scope'}
 }
 
+OAUTH2_PROVIDER_APPLICATION_MODEL='app.Applicaiton'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
