@@ -19,9 +19,13 @@ from django.urls import include, path
 
 from oauth.app.views.custom_token_views import CustomTokenView
 from oauth.app.views.user_views import UserDetails, UserList, UserRegister
+from oauth.app.views.home import home
 
 urlpatterns = [
-    path('account/', admin.site.urls),
+    path('', home, name="index" ),
+    path('login/', home, name="login" ),
+    path('admin/', admin.site.urls),
+    path('accounts/', include("django.contrib.auth.urls")),
     path('oauth/token/', CustomTokenView.as_view(), name='token'),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('users/', UserList.as_view()),
