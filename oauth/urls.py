@@ -15,14 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from oauth.app.views.user_views import UserList, UserDetails
+from django.urls import include, path
+
 from oauth.app.views.custom_token_views import CustomTokenView
+from oauth.app.views.user_views import UserDetails, UserList, UserRegister
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('account/', admin.site.urls),
     path('oauth/token/', CustomTokenView.as_view(), name='token'),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('users/', UserList.as_view()),
     path('users/<pk>/', UserDetails.as_view()),
+    path('user/register/', UserRegister.as_view()),
 ]

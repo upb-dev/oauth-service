@@ -1,10 +1,12 @@
+import json
+
 from django.http import HttpResponse
-from oauth2_provider.views.base import TokenView
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
-from oauth2_provider.models import get_access_token_model, get_application_model
+from oauth2_provider.models import get_access_token_model
 from oauth2_provider.signals import app_authorized
-import json
+from oauth2_provider.views.base import TokenView
+
 
 class CustomTokenView(TokenView):
     @method_decorator(sensitive_post_parameters("password"))
@@ -20,12 +22,12 @@ class CustomTokenView(TokenView):
                     sender=self, request=request,
                     token=token)
                 
-                body['member'] = {
-                    'user_id': str(token.user.id), 
-                    'username': token.user.username, 
-                    'user_email': token.user.email,
-                    'user_phone_no': token.user.phone
+                body['user'] = {
+                    'id': str(token.user.id), 
+                    'email': token.user.email,
+                    'phone_no': token.user.phone
                 }
+
                 body = json.dumps(body) 
         response = HttpResponse(content=body, status=status)
         for k, v in headers.items():
