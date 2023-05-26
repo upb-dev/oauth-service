@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-VERSION=env("VERSION")
+VERSION = env("VERSION")
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'oauth.app',
     'oauth2_provider',
     'rest_framework',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,7 @@ ROOT_URLCONF = 'oauth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR /"oauth/app/templates"],
+        'DIRS': [BASE_DIR / "oauth/app/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'oauth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': env("DB_NAME"),
         'USER': env("DB_USER"),
         'PASSWORD': env("DB_PASS"),
@@ -108,6 +109,8 @@ OAUTH2_PROVIDER = {
     # this is the list of available scopes
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups', 'introspection': 'Introspect token scope'}
 }
+
+OAUTH2_PROVIDER_APPLICATION_MODEL = 'app.Applicaiton'
 
 
 # Password validation
@@ -152,7 +155,12 @@ STATIC_ROOT = 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL='app.User'
+AUTH_USER_MODEL = 'app.User'
 
-LOGIN_URL='/admin/login/'
+AUTHENTICATION_BACKENDS = [
+    'oauth.app.permission.CustomBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Backend autentikasi default Django
+]
 
+LOGIN_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'

@@ -1,14 +1,30 @@
 {% extends 'base.html' %} {% block title %} Home {% endblock %} {% block body %}
 <style>
   #cover {
-    background: rgb(255, 255, 255) url("https://unsplash.it/1920/1080/?random")
+    /* background: rgb(255, 255, 255) url("https://unsplash.it/1920/1080/?random")
       center center no-repeat;
     background-size: cover;
-    height: 100%;
+    height: 100%; */
     text-align: center;
     display: flex;
     align-items: center;
     position: relative;
+
+    background: #6a11cb;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(
+      to right,
+      rgba(106, 17, 203, 1),
+      rgba(37, 117, 252, 1)
+    );
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(
+      to right,
+      rgba(106, 17, 203, 1),
+      rgba(37, 117, 252, 1)
+    );
   }
 
   #cover-caption {
@@ -40,14 +56,16 @@
           <img
             src="https://www.pelitabangsa.ac.id/wp-content/uploads/2019/09/LOGO_UPB_NEW-1.png"
             style="width: 100px"
+            alt="logo"
           />
-          <h1 class="display-4 py-2 text-truncate">UPB <br />Oauth2 Service</h1>
-          <h6>Versi {{ version }}</h6>
+          <h1 class="display-4 py-2 text-truncate">SIMEGAH</h1>
+          <h3>Oauth2 Service</h3>
+          <h5>part of Universitas Pelita Bangsa</h5>
           <div class="px-2">
             {% if is_login %}
 
             <a
-              href="/accounts/logout"
+              href="{% url 'logout' %}"
               type="submit"
               class="btn btn-outline-light btn-lg justify-content-center"
             >
@@ -55,13 +73,16 @@
             </a>
             {% else %}
             <a
-              href="/accounts/login"
+              href="{% url 'login' %}"
               type="submit"
               class="btn btn-outline-light btn-lg justify-content-center"
             >
               Login
             </a>
             {% endif %}
+            <div class="mt-4">
+              <h6>Versi {{ version }}</h6>
+            </div>
           </div>
         </div>
       </div>
