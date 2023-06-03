@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'oauth.app',
     'oauth2_provider',
     'rest_framework',
-    'widget_tweaks'
+    'widget_tweaks',
+    'fontawesome_5',
 ]
 
 MIDDLEWARE = [

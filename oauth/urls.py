@@ -21,12 +21,13 @@ from oauth.app.views.custom_token_views import CustomTokenView
 from oauth.app.views.user_views import UserDetails, UserList, UserRegister
 from oauth.app.views.home import home
 from oauth.app.views.login_views import custom_login
+from oauth.app.views.profile_views import profile
 
 urlpatterns = [
     path('', home, name="home"),
     path('admin/', admin.site.urls),
     path('accounts/login/', custom_login, name="login"),
-    path('accounts/profile/', home, name="profile"),
+    path('accounts/profile/', profile, name="profile"),
     path('accounts/', include("django.contrib.auth.urls")),
     path('oauth/token/', CustomTokenView.as_view(), name='token'),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),

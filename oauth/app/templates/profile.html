@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block title %}Profile{% endblock %} {% block body%}
+<style>
+  #cover {
+      /* background: rgb(255, 255, 255) url("https://unsplash.it/1920/1080/?random")
+        center center no-repeat;
+      background-size: cover;
+      height: 100%; */
+      text-align: center;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      background: #6a11cb;
+
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(
+        to right,
+        rgba(106, 17, 203, 1),
+        rgba(37, 117, 252, 1)
+      );
+
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(
+        to right,
+        rgba(106, 17, 203, 1),
+        rgba(37, 117, 252, 1)
+      );
+    }
+</style>
+<section id="cover" class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-md-9 col-lg-7 col-xl-5">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-4 text-black">
+            <div>
+              <h6 class="mb-4">User Profile</h6>
+            </div>
+            <div class="d-flex align-items-center mb-4">
+              <div class="flex-shrink-0">
+                <img
+                  src="https://w7.pngwing.com/pngs/980/304/png-transparent-computer-icons-user-profile-avatar-heroes-silhouette-avatar.png"
+                  alt="Generic placeholder image"
+                  class="img-fluid rounded-circle"
+                  style="width: 100px;"
+                />
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex flex-row align-items-between mb-2">
+                  <div class="d-flex flex-column align-items-start mb-2">
+                    <p class="mb-0 me-2">Email :</p>
+                    <p class="mb-0 me-2">Joined :</p>
+                    <p class="mb-0 me-2">Last Login :</p>
+                    <p class="mb-0 me-2">Phone :</p>
+                  </div>
+                  <div class="d-flex flex-column align-items-start mb-2">
+                    <p class="mb-0 me-2">{{ user.email }}</p>
+                    <p class="mb-0 me-2">{{ user.date_joined }}</p>
+                    <p class="mb-0 me-2">{{ user.last_login }}</p>
+                    <p class="mb-0 me-2">{{user.phone}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            {% comment %}
+            <p class="my-4 pb-1">52 comments</p>
+            {% endcomment %}
+            <div class="d-flex align-items-center justify-content-evenly mb-3">
+              <a
+                type="submit"
+                href="{% url 'password_change' %}"
+                class="btn btn-outline-dark btn-rounded btn-block btn-md"
+                style="padding-right: 10px;"
+              >
+                <i class="fas fa-key"></i> Change Password
+              </a>
+              <a
+                type="submit"
+                href="{% url 'logout' %}"
+                class="btn btn-warning btn-rounded btn-block btn-md"
+              >
+                <i class="fas fa-lock"></i> LogOut
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
