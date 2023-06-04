@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from oauth.app.views.check_token_views import CheckTokenView
 
 from oauth.app.views.custom_token_views import CustomTokenView
 from oauth.app.views.user_views import UserDetails, UserList, UserRegister
@@ -30,6 +31,7 @@ urlpatterns = [
     path('accounts/profile/', profile, name="profile"),
     path('accounts/', include("django.contrib.auth.urls")),
     path('oauth/token/', CustomTokenView.as_view(), name='token'),
+    path('oauth/check_token/', CheckTokenView.as_view(), name='check_token'),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('users/', UserList.as_view()),
     path('users/<pk>/', UserDetails.as_view()),
