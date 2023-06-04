@@ -25,8 +25,7 @@ class CheckTokenView(IntrospectTokenView):
                 authorities_application = list(token.application.user.groups.values_list('name'))
 
                 if token.application:
-                    data["client_id"] = token.application.client_id  # TODO check authorities
-                    data['authorities'] = list(map(lambda tpl: tpl[0], authorities_application))
+                    data["client_id"] = token.application.client_id
                 if token.user is not None:
                     user_authorities = list(token.user.groups.values_list('name'))
                     common_authorities = set(authorities_application) & set(user_authorities)
@@ -35,6 +34,8 @@ class CheckTokenView(IntrospectTokenView):
                     data['email'] = token.user.email
                     data['phone_no'] = token.user.phone
                     data['authorities'] = list(map(lambda tpl: tpl[0], common_authorities))
+                else:
+                    data['authorities'] = list(map(lambda tpl: tpl[0], authorities_application))
 
                 return JsonResponse(data)
             else:
