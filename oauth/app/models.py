@@ -54,7 +54,8 @@ class User(AbstractUser):
 
 # TODO custom application table
 
-class Applicaiton(AbstractApplication):
+class Application(AbstractApplication):
     pass
     # def allows_grant_type(self, *grant_types):
-    #     return bool(set([self.authorization_grant_type, self.GRANT_CLIENT_CREDENTIALS,]) & grant_types)
+    #     # Assume, for this example, that self.authorization_grant_type is set to self.GRANT_AUTHORIZATION_CODE
+    #     return bool(set([self.authorization_grant_type, self.GRANT_CLIENT_CREDENTIALS]) & grant_types)

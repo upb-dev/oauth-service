@@ -21,14 +21,19 @@ class CustomTokenView(TokenView):
                 app_authorized.send(
                     sender=self, request=request,
                     token=token)
-                
-                body['user'] = {
-                    'id': str(token.user.id), 
-                    'email': token.user.email,
-                    'phone_no': token.user.phone
-                }
+                authorities_application = list(token.application.user.groups.values_list('name'))
 
-                body = json.dumps(body) 
+                if token.user is not None:
+                    user_authorities = list(token.user.groups.values_list('name'))
+                    common_authorities = set(authorities_application) & set(user_authorities)
+                    body['user_id'] = str(token.user.id)
+                    body['email'] = token.user.email
+                    body['phone_no'] = token.user.phone
+                    body['authorities'] = list(map(lambda tpl: tpl[0], common_authorities))
+                else:
+                    body['authorities'] = list(map(lambda tpl: tpl[0], authorities_application))
+
+                body = json.dumps(body)
         response = HttpResponse(content=body, status=status)
         for k, v in headers.items():
             response[k] = v
